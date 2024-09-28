@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump = true;
 
-    [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
+    //[Header("Keybinds")]
+    //public KeyCode jumpKey = Input.GetButton("Jump");
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         //when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if(Input.GetButtonDown("Jump") && readyToJump && grounded)
         {
             //print("work");
             readyToJump = false;
