@@ -549,6 +549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222766364}
   - component: {fileID: 1222766365}
+  - component: {fileID: 1222766366}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -601,6 +602,29 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1222766366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222766363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7fdd484ff47c74d9bfc698b0291709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  groundDrag: 5
+  jumpForce: 12
+  jumpCooldown: 0.25
+  airMultiplier: 0.4
+  jumpKey: 32
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  orientation: {fileID: 287360062}
 --- !u!1 &1610074902
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +637,7 @@ GameObject:
   - component: {fileID: 1610074905}
   - component: {fileID: 1610074904}
   - component: {fileID: 1610074903}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,8 +742,8 @@ GameObject:
   - component: {fileID: 1664425891}
   - component: {fileID: 1664425890}
   - component: {fileID: 1664425889}
-  m_Layer: 0
-  m_Name: Cube (1)
+  m_Layer: 3
+  m_Name: rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
