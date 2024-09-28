@@ -1069,6 +1069,7 @@ MonoBehaviour:
   sensX: 400
   sensY: 400
   orientation: {fileID: 287360062}
+  playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
 --- !u!1 &1222766363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,6 +1155,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   orientation: {fileID: 287360062}
+  playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
 --- !u!1 &1278626566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,6 +1750,7 @@ MonoBehaviour:
   whatIsPlant:
     serializedVersion: 2
     m_Bits: 64
+  playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
 --- !u!1 &1610074902
 GameObject:
   m_ObjectHideFlags: 0

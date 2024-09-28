@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump = true;
+
+    //public InputAction playerControls;
 
     //[Header("Keybinds")]
     //public KeyCode jumpKey = Input.GetButton("Jump");
@@ -31,10 +34,44 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    private void Start()
+    //unity new control scheme
+    [SerializeField] private InputActionAsset playerControls;
+
+    private InputAction moveAction;
+    //private InputAction lookAction;
+    private InputAction jumpAction;
+    //private InputAction shootAction;
+    private Vector2 moveInput;
+    private Vector2 lookInput;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        moveAction = playerControls.FindActionMap("Player").FindAction("Move");
+        //lookAction = playerControls.FindActionMap("Player").FindAction("Look");
+        jumpAction = playerControls.FindActionMap("Player").FindAction("Jump");
+        //shootAction = playerControls.FindActionMap("Player").FindAction("Shoot");
+
+        moveAction.performed += context => moveInput = context.ReadValue<Vector2>();
+        moveAction.canceled += context => moveInput = Vector2.zero;
+    }
+
+    private void OnEnable()
+    {
+        moveAction.Enable();
+      //  lookAction.Enable();
+        jumpAction.Enable();
+        //shootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        moveAction.Disable();
+       // lookAction.Disable();
+        jumpAction.Disable();
+        //shootAction.Disable();
     }
 
     private void FixedUpdate()
@@ -62,11 +99,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+       // horizontalInput = Input.GetAxisRaw("Horizontal");
+        //verticalInput = Input.GetAxisRaw("Vertical");
+
 
         //when to jump
-        if(Input.GetButtonDown("Jump") && readyToJump && grounded)
+        if(jumpAction.triggered && readyToJump && grounded)
         {
             //print("work");
             readyToJump = false;
@@ -80,7 +118,8 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
+       // moveDirection = playerControls.ReadValue<Vector3>();
 
         //on ground
         if (grounded)

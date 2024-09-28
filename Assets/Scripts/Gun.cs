@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -20,15 +21,35 @@ public class Gun : MonoBehaviour
     public RaycastHit rayHit;
     public LayerMask whatIsPlant;
 
+
+    [SerializeField] private InputActionAsset playerControls;
+
+    private InputAction shootAction;
+
+    private void Awake()
+    {
+        shootAction = playerControls.FindActionMap("Player").FindAction("Shoot");
+    }
+
     private void Update()
     {
         MyInput();
     }
 
+    private void OnEnable()
+    {
+        shootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        shootAction.Disable();
+    }
+
     private void MyInput()
     {
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        if (allowButtonHold) shooting = shootAction.triggered;
+        else shooting = shootAction.triggered;
 
         //Shoot
         if(readyToShoot && shooting)
