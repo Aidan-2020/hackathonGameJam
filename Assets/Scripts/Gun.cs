@@ -26,6 +26,8 @@ public class Gun : MonoBehaviour
 
     private InputAction shootAction;
 
+    public int score = 0;
+
     private void Awake()
     {
         shootAction = playerControls.FindActionMap("Player").FindAction("Shoot");
@@ -70,7 +72,12 @@ public class Gun : MonoBehaviour
             if (rayHit.collider.CompareTag("Plant"))
             {
                 //get the plant script and make it grow
-                //rayHit.collider.GetComponent
+                //check if plant has already been gotten, if not ++ score
+                if(rayHit.collider.GetComponent<Plant>().hasGrown == false)
+                {
+                    score++;
+                    rayHit.collider.GetComponent<Plant>().grow();
+                }
             }
 
         }

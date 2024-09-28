@@ -12,6 +12,8 @@ public class FinishLine : MonoBehaviour
 
     public GameObject nextLevelGO;
 
+    public GameObject stopWatch;
+
     public void Start()
     {
         nextLvl.gameObject.SetActive(false);
@@ -28,6 +30,7 @@ public class FinishLine : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             EventSystem.current.SetSelectedGameObject(nextLevelGO);
+            stopWatch.GetComponent<StopWatch>().isRunning = false;
         }
     }
 

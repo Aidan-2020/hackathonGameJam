@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump = true;
 
+    public GameObject stopWatch;
+
     //public InputAction playerControls;
 
     //[Header("Keybinds")]
@@ -155,5 +157,10 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        stopWatch.GetComponent<StopWatch>().isRunning = true;
     }
 }
