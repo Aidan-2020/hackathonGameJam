@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MenuOpenClose",
+                    "type": "Button",
+                    "id": "ba14de7a-8bdc-4e68-a64e-c53ba8e652d1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -125,7 +134,7 @@
                     "id": "676cb9df-2dd5-4c81-91f6-36de103e8391",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.06,y=0.06)",
                     "groups": "",
                     "action": "Look",
                     "isComposite": false,
@@ -172,6 +181,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e62fdfbd-fe8c-437f-899c-41215e216bee",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuOpenClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbad5e5b-3909-4662-a01e-9f03a29b7734",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuOpenClose",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
