@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject stopWatch;
 
+    bool stratedLevel = false;
+
     //public InputAction playerControls;
 
     //[Header("Keybinds")]
@@ -161,6 +163,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        stopWatch.GetComponent<StopWatch>().isRunning = true;
+        if (stratedLevel == false)
+        {
+            stopWatch.GetComponent<StopWatch>().isRunning = true;
+            stratedLevel = true;
+        }
     }
 }
