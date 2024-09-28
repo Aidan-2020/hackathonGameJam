@@ -48,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lookInput;
 
+    [Header("Slope Handling")]
+    public float maxSlopeAngle;
+    private RaycastHit slopHit;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -89,6 +93,11 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         SpeedControl();
+
+        if (OnSlope())
+        {
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+        }
 
         //handle drag
         if (grounded)
@@ -168,5 +177,22 @@ public class PlayerMovement : MonoBehaviour
             stopWatch.GetComponent<StopWatch>().isRunning = true;
             stratedLevel = true;
         }
+    }
+
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopHit, playerHeight * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+
+    }
+
+    private Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection, slopHit.normal).normalized;
     }
 }
