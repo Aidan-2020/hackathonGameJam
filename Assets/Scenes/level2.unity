@@ -476,7 +476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &404249214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -557,7 +557,7 @@ Transform:
   m_GameObject: {fileID: 404249213}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.578, y: 0, z: 0}
+  m_LocalPosition: {x: -108.3, y: -18.59, z: -3.13}
   m_LocalScale: {x: 3.6610837, y: 1, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1861,6 +1861,7 @@ GameObject:
   - component: {fileID: 1222766364}
   - component: {fileID: 1222766365}
   - component: {fileID: 1222766366}
+  - component: {fileID: 1222766367}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1926,18 +1927,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  groundDrag: 5
+  movementMultiplier: 10
+  airMultiplier: 0.4
   jumpForce: 12
   jumpCooldown: 0.25
-  airMultiplier: 0.4
-  stopWatch: {fileID: 1168362554}
+  jumpKey: 32
+  groundDrag: 5
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  orientation: {fileID: 287360062}
-  playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
   maxSlopeAngle: 40
+  orientation: {fileID: 287360062}
+  state: 0
+  sliding: 0
+  hasSlideJumped: 0
+  stopWatch: {fileID: 1168362554}
+  playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
+--- !u!114 &1222766367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222766363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d12e355c3cfd3409f00d003a844837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 287360062}
+  playerObj: {fileID: 621085604}
+  maxSlideTime: 0.75
+  slideForce: 600
+  slideYScale: 0.5
+  slideJumpUpForce: 12
+  slideJumpForwardForce: 18
+  maxSlideJumpTime: 0.5
+  playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
 --- !u!1 &1278626566
 GameObject:
   m_ObjectHideFlags: 0
