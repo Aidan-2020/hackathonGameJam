@@ -43,7 +43,8 @@ public class FinishLine : MonoBehaviour
 
     public void restartLevel()
     {
-        SceneManager.LoadScene("SampleScene");
+        //SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void nextLevel()
