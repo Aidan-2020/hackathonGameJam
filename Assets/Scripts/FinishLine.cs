@@ -48,7 +48,7 @@ public class FinishLine : MonoBehaviour
 
     public void nextLevel()
     {
-        print("moving to next level");
+        SceneManager.LoadScene("realSecondLevel");
     }
 
     public void mainMenuButton()
