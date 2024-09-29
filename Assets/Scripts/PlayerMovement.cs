@@ -38,11 +38,14 @@ public class PlayerMovement : MonoBehaviour
     public MovementState state;
     public enum MovementState
     {
+        freeze,
         walking,
         air,
         sliding
     }
 
+    public bool freeze;
+    public bool activeGrapple;
     public bool sliding;
     public bool hasSlideJumped;
 
@@ -91,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         StateHandler();
 
         // Handle drag
-        if (grounded)
+        if (grounded && !activeGrapple)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -116,8 +119,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+        //Mode - freeze
+        if (freeze)
+        {
+            state = MovementState.freeze;
+            moveSpeed = 0;
+            rb.velocity = Vector3.zero;
+        }
         // Mode - Sliding
-        if (sliding)
+        else if (sliding)
         {
             state = MovementState.sliding;
         }
@@ -135,6 +145,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (activeGrapple)
+        {
+            return;
+        }
+
         // Calculate movement direction
         moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
 
@@ -150,13 +165,24 @@ public class PlayerMovement : MonoBehaviour
         }
         // On ground
         else if (grounded)
+        {
+            if (moveSpeed == 0) // fix movespeed being stuck at zero when it should not be
+            {
+                moveSpeed = 10;
+            }
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Force);
+        }
         // In air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Force);
     }
     private void SpeedControl()
     {
+        if (activeGrapple)
+        {
+            return;
+        }
+
         // Limiting speed on slope
         if (OnSlope() && !hasSlideJumped)
         {
@@ -191,6 +217,11 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
+    private void resetRestrictions()
+    {
+        activeGrapple = false;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (stratedLevel == false)
@@ -198,6 +229,30 @@ public class PlayerMovement : MonoBehaviour
             stopWatch.GetComponent<StopWatch>().isRunning = true;
             stratedLevel = true;
         }
+        if (enableMovementOnNextTouch)
+        {
+            enableMovementOnNextTouch = false;
+            resetRestrictions();
+
+            GetComponent<Grappling>().StopGrapple();
+        }
+    }
+
+    private bool enableMovementOnNextTouch;
+
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        activeGrapple = true;
+
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        Invoke(nameof(SetVelocity), 0.1f);
+    }
+
+    private Vector3 velocityToSet;
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true;
+        rb.velocity = velocityToSet;
     }
 
     public bool OnSlope()
@@ -214,6 +269,19 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+    }
+
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity)
+            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+        return velocityXZ + velocityY;
     }
 }
 
