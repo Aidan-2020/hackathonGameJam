@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 6f;
+    public float moveSpeed = 10f;
     public float movementMultiplier = 10f;
     public float airMultiplier = 0.4f;
 
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag = 6f;
     public float playerHeight = 2f;
     public LayerMask whatIsGround;
-    bool grounded;
+    public bool grounded;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle = 40f;
@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private Vector2 moveInput;
+
+    public bool isMovingForward;
 
     private void Awake()
     {
@@ -136,6 +138,9 @@ public class PlayerMovement : MonoBehaviour
         // Calculate movement direction
         moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
 
+        // Check if player is moving forward
+        isMovingForward = Vector3.Dot(moveDirection.normalized, orientation.forward) > 0.7f;
+
         // On slope
         if (OnSlope() && !hasSlideJumped)
         {
@@ -211,3 +216,4 @@ public class PlayerMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 }
+

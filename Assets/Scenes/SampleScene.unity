@@ -1716,17 +1716,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  groundDrag: 5
+  movementMultiplier: 10
+  airMultiplier: 0.4
   jumpForce: 12
   jumpCooldown: 0.25
-  airMultiplier: 0.4
-  stopWatch: {fileID: 1168362554}
+  jumpKey: 32
+  groundDrag: 5
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  grounded: 0
+  maxSlopeAngle: 40
   orientation: {fileID: 287360062}
+  state: 0
+  sliding: 0
+  hasSlideJumped: 0
+  stopWatch: {fileID: 1168362554}
   playerControls: {fileID: -944628639613478452, guid: 0775006d00ba7684dbd3419dcbd69639, type: 3}
+  isMovingForward: 0
 --- !u!1 &1278626566
 GameObject:
   m_ObjectHideFlags: 0
