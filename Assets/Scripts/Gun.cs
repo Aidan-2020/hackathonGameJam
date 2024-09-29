@@ -75,6 +75,7 @@ public class Gun : MonoBehaviour
                 //check if plant has already been gotten, if not ++ score
                 if(rayHit.collider.GetComponent<Plant>().hasGrown == false)
                 {
+                    print("score should increase");
                     score++;
                     rayHit.collider.GetComponent<Plant>().grow();
                 }
