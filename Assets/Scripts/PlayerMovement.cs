@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag = 6f;
     public float playerHeight = 2f;
     public LayerMask whatIsGround;
+    //public LayerMask
     public bool grounded;
 
     [Header("Slope Handling")]
