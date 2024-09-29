@@ -2459,7 +2459,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1942600530}
         m_TargetAssemblyTypeName: FinishLine, Assembly-CSharp
-        m_MethodName: restartLevel
+        m_MethodName: mainMenuButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3011,7 +3011,7 @@ MonoBehaviour:
     m_Bits: 128
   pm: {fileID: 1222766366}
   climbSpeed: 10
-  maxClimbTime: 0.75
+  maxClimbTime: 1
   detectionLength: 0.7
   sphereCastRadius: 0.25
   maxWallLookAngle: 30

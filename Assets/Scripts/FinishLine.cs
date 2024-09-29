@@ -43,12 +43,16 @@ public class FinishLine : MonoBehaviour
 
     public void restartLevel()
     {
-        //SceneManager.LoadScene("SampleScene");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void nextLevel()
     {
         print("moving to next level");
+    }
+
+    public void mainMenuButton()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
